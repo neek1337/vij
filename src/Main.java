@@ -1,4 +1,5 @@
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.ExecutorService;
@@ -26,8 +27,8 @@ public class Main {
        /* while (service.isTerminated()){
             service.awaitTermination(100, TimeUnit.MILLISECONDS);
         } */
-       /* Scanner scanner = new Scanner(new File("C:\\Users\\Никита\\Downloads\\vij\\src\\message.txt"));
-        FileWriter fileWriter = new FileWriter(new File("C:\\Users\\Никита\\Downloads\\vij\\src\\cryptedtext.txt"));
+        Scanner scanner = new Scanner(new File("message.txt"));
+        FileWriter fileWriter = new FileWriter(new File("cryptedtext.txt"));
         String keyStr = scanner.nextLine();
 
         String[] keyAr = keyStr.split(" ");
@@ -40,33 +41,39 @@ public class Main {
             mes += scanner.nextLine().toLowerCase() + " ";
         }
         ArrayList<Integer> spaces = new ArrayList<Integer>();
+        StringBuilder stringBuilder1 = new StringBuilder(mes);
         for (int i = 0; i < mes.length(); i++) {
             if (alphabet.indexOf(mes.charAt(i)) == -1) {
+                stringBuilder1.replace(i - spaces.size(), i - spaces.size() + 1, "");
                 spaces.add(i);
             }
         }
-        mes = mes.replaceAll(" ", "");
-        mes = checkLength(mes);
+
+        mes = checkLength(stringBuilder1.toString());
 
 
         String result = "";
         for (int i = 0; i < mes.length() / key.length; i++) {
-            result += decode(mes.substring(i * key.length, (i + 1) * key.length));
+            result += code(mes.substring(i * key.length, (i + 1) * key.length));
         }
 
         StringBuilder stringBuilder = new StringBuilder(result);
         for (Integer integ : spaces) {
             stringBuilder.insert(integ, " ");
         }
-
-        fileWriter.write(stringBuilder.toString());
+        String s = stringBuilder.toString();
+        while (s.contains("  ")) {
+            s = s.replaceAll("  ", " ");
+        }
+        fileWriter.write(s);
         fileWriter.write("\n");
 
 
         fileWriter.flush();
         fileWriter.close();
-          */
-        dic = new HashMap<Integer, HashSet<String>>();
+        ;
+
+       /* dic = new HashMap<Integer, HashSet<String>>();
         int dicsiz = 100000;
         Scanner scanner1 = new Scanner(new File("C:\\Users\\Никита\\Downloads\\vij\\src\\areverse.txt"));
         int number = 1;
@@ -126,7 +133,7 @@ public class Main {
         }
 
         System.out.println(stringBuilder);
-        List<String> l = val(distance);
+        List<String> l = val(distance);   */
     }
 
     public static String code(String mes) {
